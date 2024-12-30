@@ -13,17 +13,10 @@ public class OrderController : ControllerBase
         _orderService = orderService;
     }
 
-    [HttpPost("CreateOrder")]
-    public async Task<IActionResult> CreateOrder([FromForm] OrderModel model)
+    [HttpGet("GetOrders/{userId}")]
+    public async Task<IActionResult> GetOrders(string userId)
     {
-        var result = _orderService.CreateOrder(model);
-        return NoContent();
-    }
-
-    [HttpGet("GetOrders")]
-    public async Task<IActionResult> GetOrders()
-    {
-        var result = await _orderService.GetAll();
+        var result = await _orderService.GetAll("111");
         return Ok(result);
     }
     [HttpGet("GetOrder/{orderId}")]
