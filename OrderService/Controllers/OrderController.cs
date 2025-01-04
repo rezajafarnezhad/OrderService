@@ -25,4 +25,12 @@ public class OrderController : ControllerBase
         var result = await _orderService.GetOrderBy(orderId);
         return Ok(result);
     }
+
+    [HttpGet("PaymentOrder/{orderId}")]
+    public async Task<IActionResult> PaymentOrder(Guid orderId)
+    {
+        var result = await _orderService.OrderPayment(orderId);
+        return Ok(result);
+    }
+
 }

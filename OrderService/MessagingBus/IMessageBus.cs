@@ -28,13 +28,13 @@ public class RabbitMqMessageBus : IMessageBus
 
         using var channel = connection.CreateModel();
 
-        channel.QueueDeclare(queue: _rabbitMqConfiguration.QueueName, durable: true,
+        channel.QueueDeclare(queue: queueName, durable: true,
            exclusive: false, autoDelete: false, arguments: null);
 
         var body = _rabbitMqHelper.CreateBody(message);
         var prop = channel.CreateBasicProperties();
         prop.Persistent = true;
-        channel.BasicPublish(exchange: "", routingKey: _rabbitMqConfiguration.QueueName, mandatory: false, prop, body);
+        channel.BasicPublish(exchange: "", routingKey: queueName, mandatory: false, prop, body);
 
     }
 }

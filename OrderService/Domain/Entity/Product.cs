@@ -6,5 +6,6 @@ public class Product
     public decimal ProductPrice { get; set; }
     public string ProductName { get; set; }
 
+    public void EditProductName(string name) => ProductName = name;
     public List<OrderItem> OrderItems { get; set; }
 }

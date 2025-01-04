@@ -1,4 +1,7 @@
-﻿namespace OrderService.Services;
+﻿using OrderService.Domain.Entity;
+using OrderService.MessagingBus.Models;
+
+namespace OrderService.Services;
 
 public class OrderModel
 {
@@ -13,6 +16,7 @@ public class GetAllOrderModel
     public bool OrderPaid { get; set; }
     public decimal TotalPrice { get; set; }
     public int OrderItemsCount { get; set; }
+    public OrderStatus OrderStatus { get; set; }
 
 }
 
@@ -24,6 +28,7 @@ public class GetAllOrderDetailModel
     public decimal TotalPrice { get; set; }
     public int OrderItemsCount { get; set; }
     public UserInfo UserInfo { get; set; }
+    public OrderStatus OrderStatus { get; set; }
 
     public List<OrderItemModel> OrderItems { get; set; }
 
@@ -51,7 +56,12 @@ public class OrderItemModel
 
 
 
+public class ProductUpdateMessage
+{
+    public Guid ProductId { get; set; }
+    public string ProductName { get; set; }
 
+}
 
 
 public class BasketItemMessage
@@ -75,6 +85,23 @@ public class BasketModelMessage
     public string PhoneNumber { get; set; }
     public decimal TotalPrice { get; set; }
     public List<BasketItemMessage> BasketItemMessage { get; set; }
+    public Guid MessageId { get; set; }
+    public DateTime MessageData { get; set; }
+}
+
+
+
+
+public class PaymentOrderMessage : BaseMessage
+{
+    public Guid OrderId { get; set; }
+    public decimal Amount { get; set; }
+}
+
+
+public class PaymentDoneMessage
+{
+    public Guid OrderId { get; set; }
     public Guid MessageId { get; set; }
     public DateTime MessageData { get; set; }
 }

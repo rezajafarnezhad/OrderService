@@ -21,6 +21,8 @@ builder.Services.AddScoped<IMessageBus, RabbitMqMessageBus>();
 builder.Services.AddScoped<IRabbitMqMessageBusHelper, RabbitMqMessageBusHelper>();
 
 builder.Services.AddHostedService<ReceivedOrderCreatedMessage>();
+builder.Services.AddHostedService<ReceivedPaymentDoneMessage>();
+builder.Services.AddHostedService<ReceivedUpdateProductMessage>();
 
 var app = builder.Build();
 

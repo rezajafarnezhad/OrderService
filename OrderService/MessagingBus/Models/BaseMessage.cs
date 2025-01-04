@@ -12,7 +12,7 @@
 
     public class BaseMessage
     {
-        public Guid MessageId { get; set; }
-        public DateTime MessageData { get; set; }
+        public Guid MessageId { get; set; } = Guid.NewGuid();
+        public DateTime MessageData { get; set; } = DateTime.Now;
     }
 }

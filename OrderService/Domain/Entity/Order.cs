@@ -11,7 +11,7 @@ public class Order
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string PostalCode { get; private set; }
-
+    public OrderStatus OrderStatus { get; private set; }
     public decimal TotalPrice { get; set; }
     public List<OrderItem> OrderItems { get; private set; }
 
@@ -28,6 +28,7 @@ public class Order
         PostalCode = postalCode;
         OrderItems = orderItems;
         TotalPrice = totalPrice;
+        OrderStatus = OrderStatus.Pending;
     }
 
 
@@ -40,6 +41,12 @@ public class Order
     {
         return OrderItems.Sum(c => c.Quantity * c.Product.ProductPrice);
     }
+
+    public void ChangeStatus(OrderStatus status, bool isPaid)
+    {
+        OrderStatus = status;
+        OrderPaid = isPaid;
+    }
 }
 
 public class OrderItem
@@ -50,4 +57,12 @@ public class OrderItem
     public Guid OrderId { get; set; }
     public Order Order { get; set; }
     public Product Product { get; set; }
+}
+
+
+public enum OrderStatus
+{
+    Pending,
+    RequestedPayment,
+    IsPaid
 }
