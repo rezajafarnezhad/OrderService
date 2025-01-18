@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using OrderService.Infrastructure;
 using OrderService.Jobs.RabbitReceivedMessage;
@@ -24,6 +25,14 @@ builder.Services.AddHostedService<ReceivedOrderCreatedMessage>();
 builder.Services.AddHostedService<ReceivedPaymentDoneMessage>();
 builder.Services.AddHostedService<ReceivedUpdateProductMessage>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(c =>
+    {
+        c.Authority = "https://localhost:7032"; //Identity Server
+        c.Audience = "orderService";
+
+    });
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -33,9 +42,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

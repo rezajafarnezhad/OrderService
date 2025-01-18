@@ -292,6 +292,8 @@ public class OrderService : IOrderService
     public async Task<bool> UpdateProduct(ProductUpdateMessage model)
     {
         var product = await _context.Product.FindAsync(model.ProductId);
+        if (product == null)
+            return false;
         product.EditProductName(model.ProductName);
         await _context.SaveChangesAsync();
         return true;
