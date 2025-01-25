@@ -33,6 +33,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
     });
 
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("ManagementOrder", policy => policy.RequireClaim("scope", "orderService.Management"));
+});
+
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("GetOrder", policy => policy.RequireClaim("scope", "orderService.GetOrder"));
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
