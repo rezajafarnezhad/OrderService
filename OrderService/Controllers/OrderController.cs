@@ -18,6 +18,7 @@ public class OrderController : ControllerBase
     [HttpGet("GetOrders/{userId}")]
     public async Task<IActionResult> GetOrders(string userId)
     {
+        var userId2 = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
         var result = await _orderService.GetAll("111");
         return Ok(result);
     }
